@@ -31,7 +31,7 @@ from keras.models import model_from_json
 
 #define some run parameters
 batch_size      = 32
-nb_epochs       = 10
+nb_epochs       = 20
 examplesPer     = 60000
 maxToAdd        = 8
 hidden_units    = 200
@@ -62,9 +62,11 @@ print("Building model")
 #define our time-distributed setup
 model = Sequential()
 model.add(TimeDistributedConvolution2D(8, 4, 4, border_mode='valid', input_shape=(maxToAdd,1,size,size)))
-model.add(TimeDistributedMaxPooling2D(pool_size=(2, 2),border_mode='valid'))
 model.add(Activation('relu'))
-model.add(TimeDistributedConvolution2D(8, 3, 3, border_mode='valid'))
+model.add(TimeDistributedConvolution2D(16, 3, 3, border_mode='valid'))
+#model.add(TimeDistributedMaxPooling2D(pool_size=(2, 2),border_mode='valid'))
+#model.add(Activation('relu'))
+#model.add(TimeDistributedConvolution2D(8, 3, 3, border_mode='valid'))
 model.add(Activation('relu'))
 model.add(TimeDistributedFlatten())
 model.add(Activation('relu'))
@@ -131,7 +133,7 @@ print("naive guess", np.sum(np.sqrt(np.mean([ (y_test[i] - np.mean(y_test))**2 f
 
 #save the model
 jsonstring  = model.to_json()
-with open("models/basicRNN.json",'wb') as f:
+with open("../models/basicRNN.json",'wb') as f:
     f.write(jsonstring)
-model.save_weights("models/basicRNN.h5",overwrite=True)
+model.save_weights("../models/basicRNN.h5",overwrite=True)
 

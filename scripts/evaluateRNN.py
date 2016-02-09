@@ -22,28 +22,21 @@ from keras.models import model_from_json
     
 def loadThatModel(folder):
     with open(folder+".json",'rb') as f:
-        #json_string     = json.load(f)
         json_string     = f.read()
     model = model_from_json(json_string)
     model.load_weights(folder+".h5")
     return model
 
 #define some run parameters
-maxToAdd        = 5
+maxToAdd        = 8
 hidden_units    = 150
 examplesPer     = 10
 size            = 28
 
-model   = loadThatModel("models/basicRNN")
+model   = loadThatModel("../models/basicRNN")
 
 # the data, shuffled and split between train and test sets
 (X_train_raw, y_train_temp), (X_test_raw, y_test_temp) = mnist.load_data()
-
-#ignore "cutoff" section in full run
-#X_train_raw     = X_train_raw[:cutoff]
-#X_test_raw      = X_test_raw[:cutoff]
-#y_train_temp    = y_train_temp[:cutoff]
-#y_test_temp     = y_test_temp[:cutoff]
 
 #basic image processing
 X_train_raw     = X_train_raw.astype('float32')
@@ -80,7 +73,7 @@ for num, ans in enumerate(y_test):
     for num2, image in enumerate(images):    
         print(image.shape)
         image   = image[0,:,:]
-        mi.imsave("../image"+str(num2)+".jpg",image)
+        mi.imsave("../images/image"+str(num2)+".jpg",image)
     print(ans, preds[num])
     for num3 in range(0,5):
         output                  = np.zeros((maxToAdd,1,size,size))
