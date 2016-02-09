@@ -33,3 +33,15 @@ model.add(Dense(1))
 rmsprop = RMSprop()
 model.compile(loss='mean_squared_error', optimizer=rmsprop)
 ```
+
+##Example Output
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929148/4ce5c8c8-cf3f-11e5-835c-4d9eacff485f.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929147/4ce599c0-cf3f-11e5-90ea-84b06bcef147.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929149/4ce7eafe-cf3f-11e5-932a-fa9f9ea52a70.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929150/4ce8e332-cf3f-11e5-8dc2-6e17efd28588.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929153/4ceb8f92-cf3f-11e5-8da0-31b1779fd69f.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929152/4ceb73cc-cf3f-11e5-9e70-ecf16ab83ebf.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929159/4cf3ece6-cf3f-11e5-9255-6800372be51f.jpg)
+![alt1](https://cloud.githubusercontent.com/assets/7809188/12929158/4cf2136c-cf3f-11e5-8bfb-6995eca11f9d.jpg)
+
+The output for this input is 38.82
