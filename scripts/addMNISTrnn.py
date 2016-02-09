@@ -31,14 +31,12 @@ from keras.models import model_from_json
 
 #define some run parameters
 batch_size      = 32
-nb_epochs       = 100
+nb_epochs       = 10
 examplesPer     = 60000
 maxToAdd        = 8
 hidden_units    = 200
 size            = 28
 #cutoff          = 1000
-
-
 
 # the data, shuffled and split between train and test sets
 (X_train_raw, y_train_temp), (X_test_raw, y_test_temp) = mnist.load_data()
@@ -56,7 +54,7 @@ X_train_raw /= 255
 X_test_raw  /= 255
 
 
-print('X_train shape:', X_train_raw.shape)
+print('X_train_raw shape:', X_train_raw.shape)
 print(X_train_raw.shape[0], 'train samples')
 print(X_test_raw.shape[0], 'test samples')
 print("Building model")
@@ -104,19 +102,13 @@ for ep in range(0,nb_epochs):
     y_train     = np.array(y_train)
     
     if ep == 0:
-        print("X_train_shape: ",X_train.shape)
-        print("y_train_shape: ",y_train.shape)
-    #X_train     = np.array(X_train)
-
-    
-    
- 
-    
+        print("X_train shape: ",X_train.shape)
+        print("y_train shape: ",y_train.shape)
     
     model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=1,
               verbose=1)
 
-
+#Test the model
 X_test     = np.zeros((examplesPer,maxToAdd,1,size,size))
 for i in range(0,examplesPer):
     output      = np.zeros((maxToAdd,1,size,size))
@@ -133,18 +125,13 @@ y_test  = np.array(y_test)
 
 preds   = model.predict(X_test)
 
-
-    
+#print the results of the test    
 print(np.sum(np.sqrt(np.mean([ (y_test[i] - preds[i][0])**2 for i in range(0,len(preds)) ]))))
 print("naive guess", np.sum(np.sqrt(np.mean([ (y_test[i] - np.mean(y_test))**2 for i in range(0,len(y_test)) ]))))
 
-
-
-
-
-
-#jsonstring  = model.to_json()
-#with open("../models/basicRNN.json",'wb') as f:
-#    f.write(jsonstring)
-#model.save_weights("../models/basicRNN.h5",overwrite=True)
+#save the model
+jsonstring  = model.to_json()
+with open("models/basicRNN.json",'wb') as f:
+    f.write(jsonstring)
+model.save_weights("models/basicRNN.h5",overwrite=True)
 

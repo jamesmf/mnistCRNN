@@ -15,12 +15,8 @@ Reaches 0.93 train/test accuracy after 900 epochs
 
 from __future__ import print_function
 import numpy as np
-#np.random.seed(1337)  # for reproducibility
-
 from keras.datasets import mnist
 import scipy.misc as mi
-#from keras.utils import np_utils
-
 from keras.models import model_from_json
 
     
@@ -38,7 +34,7 @@ hidden_units    = 150
 examplesPer     = 10
 size            = 28
 
-model   = loadThatModel("../models/basicRNN")
+model   = loadThatModel("models/basicRNN")
 
 # the data, shuffled and split between train and test sets
 (X_train_raw, y_train_temp), (X_test_raw, y_test_temp) = mnist.load_data()
@@ -80,15 +76,17 @@ for num, ans in enumerate(y_test):
     
     images  = np.zeros((maxToAdd,1,size,size))
     xtr     = X_test_raw[inds[num]]
-    images[0:xtr.shape[0],:,:] = xtr
+    images[0:xtr.shape[0],0,:,:] = xtr
     for num2, image in enumerate(images):    
+        print(image.shape)
+        image   = image[0,:,:]
         mi.imsave("../image"+str(num2)+".jpg",image)
     print(ans, preds[num])
     for num3 in range(0,5):
         output                  = np.zeros((maxToAdd,1,size,size))
         example                 = X_test[num][0:num3+1]
         output[0:num3+1,:,:,:]  = example
-        #output                  = np.reshape(output,(1,output.shape[0],output.shape[1]))
+        output                  = np.reshape(output,(1,output.shape[0],output.shape[1],output.shape[2],output.shape[3]))
         tempPred                = model.predict(output)
         print("with ",num3," images: ",tempPred)
     stop=raw_input("")
