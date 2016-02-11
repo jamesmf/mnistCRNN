@@ -44,4 +44,4 @@ model.compile(loss='mean_squared_error', optimizer=rmsprop)
 ![alt1](https://cloud.githubusercontent.com/assets/7809188/12929159/4cf3ece6-cf3f-11e5-9255-6800372be51f.jpg)
 ![alt1](https://cloud.githubusercontent.com/assets/7809188/12929158/4cf2136c-cf3f-11e5-8bfb-6995eca11f9d.jpg)
 
-The output for this input is 34.82
+The output for this input is 38.82
