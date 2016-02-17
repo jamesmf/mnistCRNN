@@ -1,16 +1,7 @@
-'''This is a reproduction of the IRNN experiment
-with pixel-by-pixel sequential MNIST in
-"A Simple Way to Initialize Recurrent Networks of Rectified Linear Units"
-by Quoc V. Le, Navdeep Jaitly, Geoffrey E. Hinton
-
-arXiv:1504.00941v2 [cs.NE] 7 Apr 201
-http://arxiv.org/pdf/1504.00941v2.pdf
-
-Optimizer is replaced with RMSprop which yields more stable and steady
-improvement.
-
-Reaches 0.93 train/test accuracy after 900 epochs
-(which roughly corresponds to 1687500 steps in the original paper.)
+'''
+Basic demonstration of the capabilities of the CRNN using TimeDistributed layers
+Processes an MNIST image (or blank square) at each time step and sums the digits.
+Learning is based on the sum of the digits, not explicit labels on each digit.
 '''
 
 from __future__ import print_function
