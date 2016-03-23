@@ -13,6 +13,7 @@ from keras.models import Sequential
 #from keras.initializations import norRemal, identity
 from keras.layers.recurrent import SimpleRNN, LSTM, GRU
 from keras.optimizers import RMSprop, Adadelta
+from keras.convolutional import Convolution2D
 from keras.layers.core import Dense, Activation, TimeDistributedDense, Dropout, Reshape
 from keras.layers.wrappers import TimeDistributed
 from keras.models import model_from_json
