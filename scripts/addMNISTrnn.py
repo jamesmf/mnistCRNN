@@ -10,13 +10,12 @@ import numpy as np
 
 from keras.datasets import mnist
 from keras.models import Sequential
-from keras.layers.core import Dense, Activation, Dropout
-#from keras.initializations import normal, identity
+#from keras.initializations import norRemal, identity
 from keras.layers.recurrent import SimpleRNN, LSTM, GRU
 from keras.optimizers import RMSprop, Adadelta
-from keras.layers.core import Dense, Activation, TimeDistributedDense,Dropout
-from keras.layers.recurrent import  GRU
-from keras.layers.extra import TimeDistributedFlatten, TimeDistributedConvolution2D, TimeDistributedMaxPooling2D
+from keras.layers.convolutional import Convolution2D
+from keras.layers.core import Dense, Activation, TimeDistributedDense, Dropout, Reshape
+from keras.layers.wrappers import TimeDistributed
 from keras.models import model_from_json
 #import json
 
@@ -52,14 +51,14 @@ print("Building model")
 
 #define our time-distributed setup
 model = Sequential()
-model.add(TimeDistributedConvolution2D(8, 4, 4, border_mode='valid', input_shape=(maxToAdd,1,size,size)))
+model.add(TimeDistributed(Convolution2D(8, 4, 4, border_mode='valid'), input_shape=(maxToAdd,1,size,size)))
 model.add(Activation('relu'))
-model.add(TimeDistributedConvolution2D(16, 3, 3, border_mode='valid'))
-#model.add(TimeDistributedMaxPooling2D(pool_size=(2, 2),border_mode='valid'))
+model.add(TimeDistributed(Convolution2D(16, 3, 3, border_mode='valid')))
+#model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2),border_mode='valid')))
 #model.add(Activation('relu'))
-#model.add(TimeDistributedConvolution2D(8, 3, 3, border_mode='valid'))
+#model.add(TimeDistributed(Convolution2D(8, 3, 3, border_mode='valid')))
 model.add(Activation('relu'))
-model.add(TimeDistributedFlatten())
+model.add(Reshape((maxToAdd,-1)))
 model.add(Activation('relu'))
 model.add(GRU(output_dim=100,return_sequences=True))
 model.add(GRU(output_dim=50,return_sequences=False))
