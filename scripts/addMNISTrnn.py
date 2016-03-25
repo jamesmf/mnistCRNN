@@ -125,8 +125,8 @@ print(np.sum(np.sqrt(np.mean([ (y_test[i] - preds[i][0])**2 for i in range(0,len
 print("naive guess", np.sum(np.sqrt(np.mean([ (y_test[i] - np.mean(y_test))**2 for i in range(0,len(y_test)) ]))))
 
 #save the model
-jsonstring  = model.to_json()
-with open("../models/basicRNN.json",'wb') as f:
-    f.write(jsonstring)
-model.save_weights("../models/basicRNN.h5",overwrite=True)
+#jsonstring  = model.to_json()
+#with open("../models/basicRNN.json",'wb') as f:
+#    f.write(jsonstring)
+#model.save_weights("../models/basicRNN.h5",overwrite=True)
 
