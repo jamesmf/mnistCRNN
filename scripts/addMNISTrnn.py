@@ -6,7 +6,7 @@ Learning is based on the sum of the digits, not explicit labels on each digit.
 
 from __future__ import print_function
 import numpy as np
-#np.random.seed(1337)  # for reproducibility
+
 
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -18,6 +18,9 @@ from keras.layers.core import Dense, Activation, TimeDistributedDense, Dropout, 
 from keras.layers.wrappers import TimeDistributed
 from keras.models import model_from_json
 #import json
+
+# for reproducibility
+np.random.seed(2016)  
 
 #define some run parameters
 batch_size      = 32
