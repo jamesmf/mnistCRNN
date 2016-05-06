@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.layers.recurrent import SimpleRNN, LSTM, GRU
 from keras.optimizers import RMSprop, Adadelta
 from keras.layers.convolutional import Convolution2D
-from keras.layers.core import Dense, Activation, TimeDistributedDense, Dropout, Reshape
+from keras.layers.core import Dense, Activation, TimeDistributedDense, Dropout, Reshape, Flatten
 from keras.layers.wrappers import TimeDistributed
 from keras.models import model_from_json
 #import json
@@ -61,7 +61,8 @@ model.add(TimeDistributed(Convolution2D(16, 3, 3, border_mode='valid')))
 #model.add(Activation('relu'))
 #model.add(TimeDistributed(Convolution2D(8, 3, 3, border_mode='valid')))
 model.add(Activation('relu'))
-model.add(Reshape((maxToAdd,np.prod(model.output_shape[-3:])))) #this line updated to work with keras 1.0.2
+#model.add(Reshape((maxToAdd,np.prod(model.output_shape[-3:])))) #this line updated to work with keras 1.0.2
+model.add(TimeDistributed(Flatten()))
 model.add(Activation('relu'))
 model.add(GRU(output_dim=100,return_sequences=True))
 model.add(GRU(output_dim=50,return_sequences=False))
