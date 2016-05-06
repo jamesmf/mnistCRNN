@@ -62,7 +62,6 @@ model.add(TimeDistributed(Convolution2D(16, 3, 3, border_mode='valid')))
 #model.add(TimeDistributed(Convolution2D(8, 3, 3, border_mode='valid')))
 model.add(Activation('relu'))
 model.add(Reshape((maxToAdd,np.prod(model.output_shape[-3:])))) #this line updated to work with keras 1.0.2
-#model.add(Reshape((maxToAdd,model.output_shape[-3]*model.output_shape[-2]*model.output_shape[-1])))
 model.add(Activation('relu'))
 model.add(GRU(output_dim=100,return_sequences=True))
 model.add(GRU(output_dim=50,return_sequences=False))
