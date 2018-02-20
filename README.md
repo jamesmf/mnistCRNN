@@ -1,8 +1,8 @@
 # mnistCRNN
-Testing TimeDistributedConvolution layers with GRU layers
+This is a simple example of how to use TimeDistributed() to process image data in series.
 
 ## Requirements
-This code is built on keras, and is a demonstration of how to use the new TimeDistributed wrapper in 1.0.2 for convolutional-recurrent neural networks (previously compatible with 0.3.2 - for backwards compatibility find previous commits or change the Reshape layer). It was previously built on [keras-extra](https://github.com/anayebi/keras-extra/), but keras has since merged TimeDistributed as a wrapper for arbitrary layers.
+This code is built on keras, using tensorflow by default.
 
 ## Task
 The addMNISTrnn.py script downloads the MNIST dataset and creates training vectors with varying numbers of images in them. It then trains a CRNN on the sequences to predict the sum of the digits.
@@ -12,6 +12,8 @@ The model achieves a RMSE of 1.10 on the task of guessing the sum of 1 to 8 digi
 
 ## Notes
 A simpler model can do just as well on this task, but this one has multiple conv layers and multiple GRU layers in order to demonstrate how they interact.
+
+Because of the commutative nature of the task, a purely convolutional approach would be significantly faster given the fixed `numToAdd` size. Shared-parameter `Conv` stacks could process all the digits at once. But that's not the point of the demo!
 
 ```
 #define our time-distributed setup
