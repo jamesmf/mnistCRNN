@@ -72,10 +72,8 @@ model.compile(loss='mean_squared_error', optimizer=rmsprop)
 
 # run epochs of sampling data then training
 for ep in range(0, nb_epochs):
-    X_train = []
-    y_train = []
-
     X_train = np.zeros((examplesPer, maxToAdd, size, size, 3), dtype='float16')
+    y_train = []
 
     for i in range(0, examplesPer):
         # initialize a training example of max_num_time_steps, im_size, im_size, 3
@@ -112,3 +110,30 @@ model.save_weights("../models/basicRNN.h5", overwrite=True)
 
 # del X_train_raw, y_train_temp, X_train, y_train
 # gc.collect()
+
+# Test the model
+X_test = np.zeros((examplesPer, maxToAdd, size, size, 3), dtype='float16')
+y_test = []
+for i in range(0, examplesPer):
+    output = np.zeros((maxToAdd, size, size, 3))
+    numToAdd = int(np.ceil(np.random.rand()*maxToAdd))
+    indices = np.random.choice(X_test_raw.shape[0], size=numToAdd)
+    example = X_test_raw[indices]
+    example_ = []
+    for img in example:
+        img = np.expand_dims(img, axis=-1)
+        im = array_to_img(img).convert('RGB').resize((size, size), resample=Image.BILINEAR)
+        example_.append(np.asarray(im) / 255.0)
+    exampleY = y_test_temp[indices]
+    output[0:numToAdd, :, :, :] = np.array(example_, dtype='float16')
+    X_test[i, :, :, :, :] = output
+    y_test.append(np.sum(exampleY))
+
+X_test = np.array(X_test)
+y_test = np.array(y_test)       
+
+preds = model.predict(X_test)
+
+# print the results of the test
+print(np.sum(np.sqrt(np.mean([ (y_test[i] - preds[i][0])**2 for i in range(0,len(preds)) ]))))
+print("naive guess", np.sum(np.sqrt(np.mean([ (y_test[i] - np.mean(y_test))**2 for i in range(0,len(y_test)) ]))))
